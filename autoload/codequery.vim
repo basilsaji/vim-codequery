@@ -22,14 +22,22 @@ endfunction
 
 
 function! s:set_db() abort
-    let path = codequery#db#find_db_path(&filetype)
-    if empty(path)
-        echom 'CodeQuery DB Not Found'
-        return 0
+    if &filetype == 'python'
+       if filereadable("/src/arcqpy.db")
+           let g:codequery_db_path = "/src/arcqpy.db"
+           return 1
+        endif
+    elseif &filetype == 'tac'
+       if filereadable("/src/arcqtacc.db")
+           let g:codequery_db_path = "/src/arcqtacc.db"
+           return 1
+       endif
+    elseif &filetype == 'go'
+        if filereadable("/src/arcqgo.db")
+            let g:codequery_db_path = "/src/arcqgo.db"
+            return 1
+         endif
     endif
-
-    let g:codequery_db_path = path
-    return 1
 endfunction
 
 
