@@ -7,7 +7,7 @@ let g:c_family_filetype_list =
 
 
 let g:codequery_supported_filetype_list = g:c_family_filetype_list +
-    \ ['python', 'javascript', 'go', 'ruby', 'java', 'c', 'cpp']
+    \ ['python', 'javascript', 'go', 'ruby', 'java', 'c', 'cpp', 'tac']
 
 
 let s:menu_subcommands = [ 'Unite' ]
@@ -27,6 +27,11 @@ function! s:set_db() abort
            let g:codequery_db_path = "/src/arcqpy.db"
            return 1
         endif
+	 elseif &filetype == 'cpp'
+		 if filereadable("/src/arcqtacc.db")
+			  let g:codequery_db_path = "/src/arcqtacc.db"
+			  return 1
+		 endif
     elseif &filetype == 'tac'
        if filereadable("/src/arcqtacc.db")
            let g:codequery_db_path = "/src/arcqtacc.db"
